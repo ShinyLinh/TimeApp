@@ -25,9 +25,11 @@ Link Github: https://github.com/ShinyLinh/TimeApp.git
      ![image](https://github.com/user-attachments/assets/628355ee-ae3d-4f05-a96c-92c78ab13a22)
      
 4. Các tính năng
-Xem thời gian hiện tại: Nhấn nút để hiển thị giờ, phút, giây.
-Chia sẻ thời gian: Chia sẻ thời gian hiện tại qua các ứng dụng hỗ trợ chia sẻ.
-Chụp màn hình: Lưu ảnh màn hình hiện tại của ứng dụng.
+   Xem thời gian hiện tại: Nhấn nút để hiển thị giờ, phút, giây.
+   Chia sẻ thời gian: Chia sẻ thời gian hiện tại qua các ứng dụng hỗ trợ chia sẻ.
+     ![image](https://github.com/user-attachments/assets/8cb448e3-ddfb-4bd4-a741-f97db0420b17)
+
+   Chụp màn hình: Lưu ảnh màn hình hiện tại của ứng dụng.
 
 
 
