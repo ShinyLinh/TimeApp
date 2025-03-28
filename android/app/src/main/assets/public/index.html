@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiển thị thời gian</title>
+    <script src="https://unpkg.com/@capacitor/core@latest/dist/capacitor.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@capacitor-community/media@latest/dist/media.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen">
+
+<h1 class="text-3xl font-bold mb-6">Hiển thị thời gian</h1>
+
+<div class="bg-gray-800 p-6 rounded-lg shadow-lg w-80 text-center">
+    <p id="time-display" class="text-xl mb-4">Nhấn nút để xem thời gian</p>
+    <button onclick="showTime()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mb-2">
+        Xem thời gian
+    </button>
+    <button onclick="shareTime()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full mb-2">
+        Chia sẻ
+    </button>
+    <button onclick="captureScreenshot()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full">
+        Chụp màn hình
+    </button>
+</div>
+<style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ff7e5f, #feb47b); /* Màu nền gradient tươi sáng */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.6); /* Nền mờ để dễ đọc chữ */
+            border-radius: 15px;
+            padding: 40px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+        .time-display {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+        button {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .btn-primary {
+            background-color: #4caf50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        .btn-secondary {
+            background-color: #2196f3;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #1976d2;
+        }
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+<script>
+    async function showTime() {
+        let now = new Date();
+        let timeString = now.toLocaleTimeString();
+        document.getElementById('time-display').innerText = "Thời gian hiện tại: " + timeString;
+        sendNotification(timeString);
+    }
+
+    async function sendNotification(time) {
+        const { LocalNotifications } = Capacitor.Plugins;
+        await LocalNotifications.schedule({
+            notifications: [{
+                title: "Thời gian hiện tại",
+                body: "Bây giờ là: " + time,
+                id: 1,
+                schedule: { at: new Date(Date.now() + 1000) }
+            }]
+        });
+    }
+
+    async function shareTime() {
+        const { Share } = Capacitor.Plugins;
+        let now = new Date().toLocaleTimeString();
+        await Share.share({
+            title: "Thời gian hiện tại",
+            text: "Bây giờ là: " + now,
+            dialogTitle: "Chia sẻ thời gian"
+        });
+    }
+
+    async function captureScreenshot() {
+        const { Media } = Capacitor.Plugins;
+        try {
+            const screenshot = await Media.takeScreenshot();
+            alert("Ảnh đã được chụp và lưu vào: " + screenshot.path);
+        } catch (error) {
+            alert("Lỗi chụp màn hình: " + error);
+        }
+    }
+</script>
+
+</body>
+</html>
